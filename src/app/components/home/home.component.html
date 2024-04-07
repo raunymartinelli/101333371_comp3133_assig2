@@ -1,90 +1,28 @@
-<app-header></app-header>
-
-<div class="grid grid-cols-10">
-    <div class="col-start-2 col-end-10">
-         <div class="flex justify-between mb-5 ">
-            <h3 class="font-outfit text-3xl">Employee List</h3>
-                <fa-icon 
-                [icon]="faPlus"
-                (click)="onAdd()"
-                class="cursor-pointer text-3xl border rounded-3xl px-4 py-2
-                     bg-green-600 shadow-lg text-white spin-hover"
-            ></fa-icon>
-         </div>
-         <ng-container *ngTemplateOutlet="borderStyle"></ng-container>
- 
-         <table
-                class="w-full rounded-2xl shadow-md bg-white">
-             <thead>
-                 <tr class="text-xl ">
-                     <th class="text-center">No.</th>
-                     <th>First Name</th>
-                     <th>Last Name</th>
-                     <th>Email</th>
-                     <th class="border-r-0">Actions</th>
-                 </tr>
-             </thead>
-         
-             <tbody>
-                 <tr *ngFor="let employee of employees; let i = index" class="text-lg  userData">
-                     <td class="text-center">{{i+1}}</td>
-                     <td>{{employee.first_name}}</td>
-                     <td>{{employee.last_name}}</td>
-                     <td>{{employee.email}}</td>
-                     <td class="actions" class="flex justify-evenly border-r-0">
-                        <fa-icon 
-                            [icon]="faEye"
-                           (click)="onView(employee._id)"
-                            class="cursor-pointer "
-                        ></fa-icon>
-                        <fa-icon
-                            [icon]="faPencil"
-                            (click)="onUpdate(employee._id)"
-                            class="cursor-pointer text-blue-600"
-                         ></fa-icon>
-                        <fa-icon 
-                            [icon]="faTrashAlt"
-                            (click)="onDelete(employee._id)"
-                            class="cursor-pointer text-red-900"
-                        ></fa-icon>
-                     </td>
-                 </tr>     
-                
-             </tbody>
-         </table>
-    </div>
- </div>
- 
- 
-
- <ng-template #borderStyle>
-     <style>
-        .userData{     
-            border-top: 1px solid #ccc;                
-         }
-         
-         td{
-            border-right: 1px solid #ccc;
-            padding: .7rem;
-            font-family: outfit, sans-serif;
-            font-weight: 500;
-         }
-         
-         th{
-            font-family: outfit, sans-serif;
-            border-bottom: 1px solid #ccc;
-            border-right: 1px solid #ccc;
-            padding: .7rem;
-         }
-         
-        .spin-hover {
-            transition: transform 0.3s ease;
-        }
-
-        .spin-hover:hover {
-            transform: rotate(360deg);
-        }
-        
-     </style>
- </ng-template>
- 
+  <app-navbar></app-navbar>
+  <div class="table-container">
+    <div class="heading">
+        <h3>Employee List</h3>
+        <button class="btn btn-primary btn-add" routerLink="/add">Add Employee</button>
+      </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Email</th>
+          <th class="border-r-0">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <td>{{employee.firstname}}</td>
+          <td>{{employee.lastname}}</td>
+          <td>{{employee.email}}</td>
+          <td>
+            <button class="btn btn-primary btn-update" [routerLink]="['/update/' + employee._id]">Update</button>
+            <button class="btn btn-danger btn-delete" (click)="onDelete(employee._id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

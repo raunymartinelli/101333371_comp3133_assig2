@@ -1,5 +1,4 @@
 import { ApplicationConfig } from '@angular/core';
-import {myUrl} from './graphql.config'
 import { provideRouter } from '@angular/router';
 import { APOLLO_OPTIONS, Apollo } from 'apollo-angular';
 import { routes } from './app.routes';
@@ -8,12 +7,12 @@ import { provideHttpClient } from '@angular/common/http';
 import { ApolloClientOptions, ApolloLink, InMemoryCache } from '@apollo/client';
 import { HttpLink  } from 'apollo-angular/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { ModalServices } from './services/modal.service';
+import { DeleteModalService } from './services/delete.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), 
-    ModalServices,
+    DeleteModalService,
     provideClientHydration(),
     provideHttpClient(),
     {
@@ -22,7 +21,7 @@ export const appConfig: ApplicationConfig = {
         httpLink: HttpLink
       ): ApolloClientOptions<unknown> => ({
         link: ApolloLink.from([
-          httpLink.create({uri: myUrl}),
+          httpLink.create({uri: "http://localhost:4000/graphql"}),
         ]),
         cache: new InMemoryCache()
       }),

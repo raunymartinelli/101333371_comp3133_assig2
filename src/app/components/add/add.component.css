@@ -1,0 +1,33 @@
+.background {
+    padding: 20px; 
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.form-container {
+    width: 1000px;
+    border: 1px solid black;
+    background-color: white;
+    border-radius: .5rem;
+    padding: 3rem;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.btn {
+    margin-top: 10px;
+    width: 100%;
+}

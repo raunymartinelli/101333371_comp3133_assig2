@@ -1,57 +1,50 @@
-<div class="modal-content">
-    <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">{{ title }}</h2>
-        <button type="button" class="btn-close" aria-label="Close" (click)="dismiss()"></button>
-    </div>
-    <div class="modal-body">
-        <div class="container">
-             <!-- Add Employee Form  -->
-            <form (ngSubmit)="onAdd()" [formGroup]="addForm">
-                <div class="mb-3">
-                    <label for="first_name" class="form-label">First name</label>
-                    <input type="text" id="first_name" formControlName="first_name" class="form-control">
-                    <!-- Required Message -->
-                    <small *ngIf="addForm.get('first_name')?.errors?.['required'] && addForm.get('first_name')?.touched"
-                         class="text-danger"> First name is required</small>
+<app-navbar></app-navbar>
+
+<div class="container">
+    <div class="form-container">
+        <form (ngSubmit)="addEmployee()" [formGroup]="addEmployeeForm">
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col">
+                        <label for="firstname" class="form-label">First name</label>
+                        <input type="text" id="firstname" formControlName="firstname" class="form-control">
+                        <small *ngIf="addEmployeeForm.get('firstname')?.errors?.['required'] && addEmployeeForm.get('firstname')?.touched"
+                            class="text-danger"> First name is required</small>
+                    </div>
+                    <div class="col">
+                        <label for="lastname" class="form-label">Last name</label>
+                        <input type="text" id="lastname" formControlName="lastname" class="form-control">
+                        <small *ngIf="addEmployeeForm.get('lastname')?.errors?.['required'] && addEmployeeForm.get('lastname')?.touched"
+                            class="text-danger"> Last name is required</small>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="last_name" class="form-label">Last name</label>
-                    <input type="text" id="last_name" formControlName="last_name" class="form-control">
-                    <!-- Required Message -->
-                    <small *ngIf="addForm.get('last_name')?.errors?.['required'] && addForm.get('last_name')?.touched"
-                    class="text-danger"> Last name is required</small>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" formControlName="email" class="form-control">
-                    <!-- Required Message -->
-                    <small *ngIf="addForm.get('email')?.errors?.['required'] && addForm.get('email')?.touched"
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" formControlName="email" class="form-control">
+                <small *ngIf="addEmployeeForm.get('email')?.errors?.['required'] && addEmployeeForm.get('email')?.touched"
                     class="text-danger">Email is required</small>
-                    <!-- Validation Message -->
-                    <small *ngIf="addForm.get('email')?.errors?.['email'] && addForm.get('email')?.touched"
+                <small *ngIf="addEmployeeForm.get('email')?.errors?.['email'] && addEmployeeForm.get('email')?.touched"
                     class="text-danger">Invalid email</small>
-                </div>
-                <div class="mb-3">
-                    <label for="gender" class="form-label">Gender</label>
-                    <select id="gender" formControlName="gender" class="form-select">
-                        <option value="" disabled>Select gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <!-- Required Message -->
-                    <small *ngIf="addForm.get('gender')?.errors?.['required'] && addForm.get('gender')?.touched"
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select id="gender" formControlName="gender" class="form-select">
+                    <option value="" disabled>Choose a gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <small *ngIf="addEmployeeForm.get('gender')?.errors?.['required'] && addEmployeeForm.get('gender')?.touched"
                     class="text-danger"> Gender is required</small>
-                </div>
-                <div class="mb-3">
-                    <label for="salary" class="form-label">Salary</label>
-                    <input type="number" id="salary" formControlName="salary" class="form-control" placeholder="$">
-                    <!-- Required Message -->
-                    <small *ngIf="addForm.get('salary')?.errors?.['required'] && addForm.get('salary')?.touched"
+            </div>
+            <div class="mb-3">
+                <label for="salary" class="form-label">Salary</label>
+                <input type="number" id="salary" formControlName="salary" class="form-control" >
+                <small *ngIf="addEmployeeForm.get('salary')?.errors?.['required'] && addEmployeeForm.get('salary')?.touched"
                     class="text-danger"> Salary is required</small>
-                </div>
-                <button type="submit" class="btn btn-success">Add</button>
-            </form>
-        </div>
+            </div>
+            <button type="submit" class="btn btn-success">Add</button>
+        </form>
     </div>
 </div>

@@ -1,3 +1,52 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.table-container {
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start; 
+  align-items: center;
+  height: 70vh;
+  margin-bottom: 20px;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%; 
+  margin-bottom: 10px;
+}
+
+.table {
+  width: 80%; 
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table thead th {
+  background-color: #e2e8f0;
+  border-bottom: 2px solid #cbd5e0;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.table tbody td,
+.table thead th {
+  padding: 0.75rem;
+  border-bottom: 1px solid #cbd5e0;
+}
+
+td {
+  border-bottom: none;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #edf2f7;
+}
+
+.btn {
+  margin-left: .5rem;
+  margin-right: .5rem;
+  font-size: 1.2rem;
+}
+

@@ -4,8 +4,8 @@ import { FormControl } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Apollo } from 'apollo-angular';
-import { SIGN_UP_MUTATION } from '../graphql.queries/graphql.users.queries';
 import { NgIf } from '@angular/common';
+import { signup } from '../../graphql.queries';
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +21,6 @@ export class SignupComponent {
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(100),
-      Validators.pattern("^[a-zA-Z]+$")
     ]),
     email: new FormControl<string | null>("", [
       Validators.required,
@@ -33,33 +32,58 @@ export class SignupComponent {
       Validators.maxLength(100),
     ]),
   })
-  signupFailed: boolean = false
+
 
   constructor(private apollo: Apollo, private router: Router){}
 
 
-  register(){
-    if(this.signUpForm.valid){
-        const { username, email, password} = this.signUpForm.value
-        this.apollo.mutate<any>({
-          mutation: SIGN_UP_MUTATION,
-          variables: {
-            username: username,
-            email: email,
-            password: password
+  onRegister() {
+    if (this.signUpForm.valid) {
+      // Extract the form values
+      const { username, email, password } = this.signUpForm.value;
+
+      // Perform the mutation
+      this.apollo.mutate({
+        mutation: signup,
+        variables: {
+          username: username,
+          email: email,
+          password: password
+        }
+      }).subscribe({
+        next: ({ data }) => {
+          // If signup is successful, you might want to redirect to the login page
+          this.router.navigate(['/login']);
+          // Or you could directly log the user in and navigate to a dashboard, etc.
+        },
+        error: (error) => {
+          // Log the complete error for debugging
+          console.error('Error: ', error);
+
+          // Handle GraphQL errors
+          if (error && error.graphQLErrors && error.graphQLErrors.length > 0) {
+            console.error('GraphQL Errors:', error.graphQLErrors);
           }
-        }).subscribe(({data}) => {
-          if(data.signup.user){
-            this.router.navigate(['/login'])
-          }else{
-            console.log("Failed to signup")
+
+          // Handle network errors (error.status === 400, etc.)
+          if (error.networkError) {
+            console.error('Network Error:', error.networkError);
           }
-        })
-      }else{
-        this.markFormGroupTouched(this.signUpForm)
-      }
- 
+
+          // If no specific errors are provided
+          if (!error.networkError && (!error.graphQLErrors || error.graphQLErrors.length === 0)) {
+            console.error('An unknown error occurred');
+          }
+
+          // Optionally show a user-friendly error message
+        }
+      });
+    } else {
+      // If the form is not valid, mark all form controls as touched to show validation errors
+      this.markFormGroupTouched(this.signUpForm);
+    }
   }
+
 
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {

@@ -1,55 +1,35 @@
-<div class="modal-content ">
-    <div class="modal-header ">
-      <h2 class="modal-title" id="exampleModalLabel">{{ title }}</h2>
-      <button
-        type="button"
-        class="btn-close"
-        aria-label="Close"
-         (click)="dismiss()"
-      ></button>
-    </div>
-    <div class="modal-body">
-        <div class="container">
-           <form (ngSubmit)="onUpdate()" [formGroup]="updateForm">
+<app-navbar></app-navbar>
+<div class="background">
+    <div class="container">
+        <div class="form-container">
+            <form (ngSubmit)="onUpdate()" [formGroup]="updateForm">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">First name</label>
-                    <input type="text" 
-                    class="form-control" 
-                    formControlName="first_name">
+                    <input type="text" class="form-control" formControlName="firstname">
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Last name</label>
-                    <input type="text" 
-                        formControlName="last_name"
-                        class="form-control">
+                    <input type="text" formControlName="lastname" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Email</label>
-                    <input type="email"
-                    formControlName="email"
-                    class="form-control"  
-                   >
+                    <input type="email" formControlName="email" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Gender</label>
                     <select class="form-select" formControlName="gender" aria-label="Default select example">
-                        <option value="" disabled>Select gender </option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
+                        <option value="" disabled>Select gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Salary</label>
-                    <input type="number" 
-                    class="form-control" 
-                    formControlName="salary"
-                    placeholder="$">
+                    <input type="number" class="form-control" formControlName="salary">
                 </div>
-                <button type="submit" class="btn btn-primary ">Update</button>
-           </form>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
         </div>
     </div>
-  </div>
-
-  
+</div>

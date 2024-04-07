@@ -1,20 +1,18 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Apollo } from 'apollo-angular';
-import { DELETE_EMPLOYEE_MUTATION } from '../graphql.queries/graphql.employee.queries';
+import { deleteEmployee } from '../../graphql.queries';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-delete',
   standalone: true,
-  imports: [HeaderComponent, DeleteComponent],
+  imports: [NavbarComponent, DeleteComponent],
   templateUrl: './delete.component.html',
   styleUrl: './delete.component.css',
 })
 export class DeleteComponent {
-  
-  @Input() title!: string;
-  @Input() message!: string;
+
   @Input() employeeId!: string
 
   constructor(private activeModal: NgbActiveModal, private apollo: Apollo) { }
@@ -22,29 +20,39 @@ export class DeleteComponent {
   ngOnInit() {
   }
 
-   decline() {
-    this.activeModal.close(false);
+  accept() {
+    this.apollo.mutate<any>({
+      mutation: deleteEmployee,
+      variables: {
+        eid: this.employeeId
+      }
+    }).subscribe({
+      next: (response) => {
+        if(response.data && response.data.deleteEmployee) {
+          this.activeModal.close(true);
+        } else {
+          console.log("Failed deleting employee", response);
+        }
+      },
+      error: (error) => {
+        console.error('Error deleting employee:', error);
+        if (error.graphQLErrors) {
+          error.graphQLErrors.forEach((e:any) => console.error(e.message));
+        }
+        if (error.networkError) {
+          console.error(error.networkError);
+        }
+      }
+    });
   }
 
-   accept() {
-    this.apollo.mutate<any>({
-      mutation: DELETE_EMPLOYEE_MUTATION,
-      variables: {
-        id: this.employeeId
-      }
-    }).subscribe((response) => {
-      if(response.data.deleteEmployeeById){
-         this.activeModal.close(true);
-      }else{
-        alert("Failed to delete employee! ")
-      }
-    })
-   
+  decline() {
+    this.activeModal.close(false);
   }
 
    dismiss() {
     this.activeModal.dismiss();
   }
- 
+
 
 }

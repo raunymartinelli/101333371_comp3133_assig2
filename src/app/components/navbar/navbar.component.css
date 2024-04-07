@@ -1,0 +1,46 @@
+.custom-nav {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    position: relative;
+    margin-bottom: 6rem;
+  }
+  
+  .nav-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 1rem;
+  }
+  
+  .nav-item {
+    font-family: 'Veranda', sans-serif;
+    font-size: 2rem;
+    
+    font-weight: 800;
+  }
+  
+  .nav-item.router-link {
+    cursor: pointer; 
+  }
+  
+  .nav-item.ml-auto {
+    margin-left: auto;
+  }
+  
+  .logout-btn {
+    background-color: #1e40af;
+    color: white;
+    font-family: 'Veranda', sans-serif;
+    font-size: 1.3rem;
+    padding: .5rem;
+    border-radius: 0.375rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border: none;
+  }
+  
+  .logout-btn:hover {
+    opacity: 0.9;
+  }
+  

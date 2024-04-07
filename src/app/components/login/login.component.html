@@ -1,99 +1,48 @@
-<section class="p-3 p-md-4 p-xl-5">
-    <div class="container">
-      
-      <div class="card border-light-subtle shadow-sm">
-        <div class="row g-0">
-          <div class="col-12 col-md-6 text-bg-primary">
-            <div class="d-flex align-items-center justify-content-center h-100">
-              <div class="col-10 col-xl-8 py-3">
-                <h2 class="h2 mb-4">Employee Management App</h2>
-                <hr class="border-primary-subtle mb-4">
-                <p class="lead m-0"><strong>Welcome back!</strong></p>
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+            <form (ngSubmit)="onLogin()" [formGroup]="loginForm">
+              <div class="mb-md-5 mt-md-4 pb-5">
+                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                <p class="text-white-50 mb-5">Please enter your login and password!</p>
+
+                <div class="form-outline form-white mb-4">
+                  <input placeholder="Username" type="email" id="typeEmailX" class="form-control form-control-lg" formControlName="username" />
+                  <small *ngIf="loginForm.get('username')?.errors?.['minlength'] && loginForm.get('username')?.touched"
+                    class="text-danger">Username must be more than 4 characters</small>
+                  <small *ngIf="loginForm.get('username')?.errors?.['maxlength'] && loginForm.get('username')?.touched"
+                    class="text-danger">Username must be less than 100 characters</small>
+                  <small *ngIf="loginForm.get('username')?.errors?.['required'] && loginForm.get('username')?.touched"
+                    class="text-danger">Username is required</small>
+                </div>
+                
+                <div class="form-outline form-white mb-4">
+                  <input placeholder="Password" type="password" id="typePasswordX" class="form-control form-control-lg" formControlName="password" />
+                  <small *ngIf="loginForm.get('password')?.errors?.['minlength'] && loginForm.get('password')?.touched"
+                    class="text-danger">Password must be more than 8 characters</small>
+                  <small *ngIf="loginForm.get('password')?.errors?.['maxlength'] && loginForm.get('password')?.touched"
+                    class="text-danger">Password must be less than 100 characters</small>
+                  <small *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"
+                    class="text-danger">Password is required</small>
+                </div>
+                
+
+                <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+
               </div>
+            </form>
+
+            <div>
+              <p class="mb-0">Don't have an account? <a routerLink="/signup" class="text-white-50 fw-bold">Sign Up</a>
+              </p>
             </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="card-body p-3 p-md-4 p-xl-5">
-              <div class="row">
-                <div class="col-12">
-                  <div class="mb-5">
-                    <h3>Log in</h3>
-                  </div>
-                </div>
-              </div>
 
-              <!-- Login Form   -->        
-              <form (ngSubmit)="signIn()" [formGroup]="loginForm">
-                <div class="row gy-3 gy-md-4 overflow-hidden">
-                  <div class="col-12">
-                    <input 
-                        formControlName="username" 
-                        type="text" 
-                        class="form-control" 
-                        name="username"
-                        id="username" 
-                        placeholder="Username">
-
-                  <!-- Required Message -->
-                  <small
-                    *ngIf="loginForm.get('username')?.errors?.['required'] && loginForm.get('username')?.touched"
-                    class="text-danger">Username is required</small>     
-                    
-                  <!-- MinLength Message -->
-                  <small
-                  *ngIf="loginForm.get('username')?.errors?.['minlength'] && loginForm.get('username')?.touched"
-                  class="text-danger">Username must be more than 4 characters</small>   
-
-                  <!-- MaxLength Message -->
-                  <small
-                  *ngIf="loginForm.get('username')?.errors?.['maxlength'] && loginForm.get('username')?.touched"
-                  class="text-danger">Username must be less than 100 characters </small> 
-
-                  </div>
-                  <div class="col-12">
-                    <input 
-                        formControlName="password" 
-                        type="password" 
-                        class="form-control" 
-                        name="password" 
-                        id="password" 
-                        placeholder="Password" required>
-
-                  <!-- Required Message -->
-                  <small
-                  *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"
-                  class="text-danger">Password is required</small>     
-                   
-                 <!-- MinLength Message -->
-                 <small
-                 *ngIf="loginForm.get('password')?.errors?.['minlength'] && loginForm.get('password')?.touched"
-                 class="text-danger">Password must be more than 8 characters</small>   
-
-                 <!-- MaxLength Message -->
-                 <small
-                 *ngIf="loginForm.get('password')?.errors?.['maxlength'] && loginForm.get('password')?.touched"
-                 class="text-danger">Password must be less than 100 characters </small>       
-                  </div>
-               
-                  <div class="col-12">
-                    <div class="d-grid">
-                      <button class="btn bsb-btn-xl btn-primary" type="submit">Log in</button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-              <div class="row">
-                <div class="col-12">
-                  <hr class="mt-5 mb-4 border-secondary-subtle">
-                  <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end">
-                    <a routerLink="/signup" class="link-secondary text-decoration-none">Create new account</a>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-
+  </div>
+</section>

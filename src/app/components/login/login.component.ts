@@ -4,8 +4,8 @@ import { FormControl } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Apollo } from 'apollo-angular';
-import { LOGIN_QUERY } from '../graphql.queries/graphql.users.queries';
 import { NgIf } from '@angular/common';
+import { login } from '../../graphql.queries';
 
 @Component({
   selector: 'app-login',
@@ -32,30 +32,39 @@ export class LoginComponent implements OnInit {
   constructor(private apollo: Apollo, private router: Router){}
 
   ngOnInit(): void {
-    
+
   }
 
-  signIn(){
-      if (this.loginForm.valid) {
-        
+  onLogin() {
+    if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-      this.apollo.watchQuery<any>({
-        query: LOGIN_QUERY,
+      this.apollo.query<any>({
+        query: login,
         variables: {
-          usernameOrEmail: username,
+          username: username,
           password: password
         }
-      }).valueChanges.subscribe((response) => {
-        if(response.data.login === "Success"){
+      }).subscribe((response) => {
+        const token = response?.data?.login?.token;
+        if (token) {
+          // Assuming you are storing the token in local storage or a similar approach
+          localStorage.setItem('token', token);
           this.router.navigate(['/home']);
         } else {
-         console.log('Login Failed')         
-        }      
-      })
-    }else{
-      this.markFormGroupTouched(this.loginForm)
+          console.log('Login Failed');
+          // Here you should also handle login failures, such as incorrect credentials
+          // This might be a good place to show an error message to the user
+        }
+      }, (error) => {
+        console.error('Login Error:', error);
+        // Handle the error state here
+        // You should display a user-friendly message
+      });
+    } else {
+      this.markFormGroupTouched(this.loginForm);
     }
   }
+
 
   markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {
